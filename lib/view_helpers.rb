@@ -16,13 +16,13 @@ module MultimodelForms
     end
     
     def delete_link text, through, form, klass
-      l = link_to_function(text, "$(this).up('.#{klass}').down('.should_destroy').value = 1; $(this).up('.#{klass}').hide();", :class => 'delete')
+      l = link_to_function(text, "if (confirm('Are you sure?')) {$(this).up('.#{klass}').down('.should_destroy').value = 1; $(this).up('.#{klass}').hide();};return false;", :class => 'delete')
       l += form.hidden_field :should_destroy, :index => nil, :class => 'should_destroy'
       l += form.hidden_field :id, :index => nil
     end
     
     def new_delete_link text, through, klass
-      link_to_function(text, "$(this).up('.#{klass}').remove()", :class => 'delete')
+      link_to_function(text, "if (confirm('Are you sure?')) {$(this).up('.#{klass}').remove()};return false;", :class => 'delete')
     end
     
     # Defaults klass to through class name
